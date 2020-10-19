@@ -25,12 +25,9 @@ public class Tool {
 	private Float price;
 	@Column(length=3000)
 	private String description;
-	private Long image;
+	private String image;
 	private Date createdAt;
     private Date updatedAt;
-    // Might need
-    //private Long userId; for frontend
-    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -69,11 +66,11 @@ public class Tool {
 		this.description = description;
 	}
 
-	public Long getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Long image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

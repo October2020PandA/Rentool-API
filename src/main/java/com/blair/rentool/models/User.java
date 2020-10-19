@@ -26,7 +26,6 @@ public class User {
 	private String state;
 	private Date createdAt;
     private Date updatedAt;
-    
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tool> tools = new ArrayList<>();
 
