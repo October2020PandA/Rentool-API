@@ -3,6 +3,9 @@ package com.blair.rentool.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.blair.rentool.models.Tool;
@@ -15,6 +18,11 @@ public class ToolService {
 	
 	public List<Tool> findAllTools() {
 		return toolRepo.findAll();
+	}
+	
+	public Page<Tool> findAllPages(int pageNumber) {
+		Pageable pageable = PageRequest.of(pageNumber-1, 8);
+		return toolRepo.findAll(pageable);
 	}
 	
 	public Tool findToolById(Long id) {

@@ -3,6 +3,7 @@ package com.blair.rentool.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,8 +64,13 @@ public class MainController {
 	}
 	
 	@GetMapping("/tools/page/{pageNumber}")
-	public List<Tool> getToolsByPage(@PathVariable("pageNumber") Long pageNumber) {
-		
+	public List<Tool> getToolsByPage(@PathVariable("pageNumber") int pageNumber) {
+		Page<Tool> page = tService.findAllPages(pageNumber);
+		long totalTools = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+		System.out.println(totalTools);
+		System.out.println(totalPages);
+		//Probably need to create a wrapper class to send information to frontend including the above 2 fields.
 		return null;
 	}
 	
