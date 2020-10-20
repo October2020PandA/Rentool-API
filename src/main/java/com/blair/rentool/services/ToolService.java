@@ -37,7 +37,8 @@ public class ToolService {
 		toolRepo.deleteById(id);
 	}
 	
-	public List<Tool> searchTool(String searchName) {
-		return toolRepo.findByNameContaining(searchName);
+	public Page<Tool> searchTool(String searchName, int pageNumber) {
+		Pageable pageable = PageRequest.of(pageNumber-1, 8);
+		return toolRepo.findByNameContaining(searchName, pageable);
 	}
 }

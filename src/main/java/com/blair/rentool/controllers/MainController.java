@@ -1,7 +1,5 @@
 package com.blair.rentool.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,15 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.blair.rentool.models.Tool;
 import com.blair.rentool.models.User;
 import com.blair.rentool.services.ToolService;
 import com.blair.rentool.services.UserService;
-
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin("*")
@@ -58,20 +52,14 @@ public class MainController {
     	}
     }
 	
-	@GetMapping("/tools")
-	public List<Tool> getTools() {
-		return tService.findAllTools();
-	}
+//	@GetMapping("/tools")
+//	public List<Tool> getTools() {
+//		return tService.findAllTools();
+//	}
 	
 	@GetMapping("/tools/page/{pageNumber}")
-	public List<Tool> getToolsByPage(@PathVariable("pageNumber") int pageNumber) {
-		Page<Tool> page = tService.findAllPages(pageNumber);
-		long totalTools = page.getTotalElements();
-		int totalPages = page.getTotalPages();
-		System.out.println(totalTools);
-		System.out.println(totalPages);
-		//Probably need to create a wrapper class to send information to frontend including the above 2 fields.
-		return null;
+	public Page<Tool> getToolsByPage(@PathVariable("pageNumber") int pageNumber) {
+		return tService.findAllPages(pageNumber);
 	}
 	
 	@GetMapping("/tools/{tool_id}")
@@ -97,9 +85,9 @@ public class MainController {
 		return "Successfully deleted";
 	}
 	
-	@GetMapping("/tools/find/{searchName}")
-	public List<Tool> searchTools(@PathVariable("searchName") String searchName) {
-		return tService.searchTool(searchName);
+	@GetMapping("/tools/find/{searchName}/{pageNumber}")
+	public Page<Tool> searchTools(@PathVariable("searchName") String searchName, @PathVariable("pageNumber") int pageNumber) {
+		return tService.searchTool(searchName, pageNumber);
 	}
 	
 }
