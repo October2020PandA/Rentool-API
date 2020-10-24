@@ -90,4 +90,10 @@ public class MainController {
 		return tService.searchTool(searchName, pageNumber);
 	}
 	
+	@GetMapping("/tools/user/{tool_id}")
+	public User getUserFromTool(@PathVariable("tool_id") Long id) {
+		Tool tool = tService.findToolById(id);
+		return tool.getUser();
+	}
+	
 }
